@@ -94,7 +94,7 @@ public class MyStackTest {
 	}
 	
 	@Test
-	public void testTop() {
+	public void testTop() throws StackUnderflowException {
 		assertEquals(c, stringS.top());
 		try {
 			stringS.push(d);
