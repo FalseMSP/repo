@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.lang.Math.*;
 
 public class CourseDBStructure implements CourseDBStructureInterface {
 	private LinkedList[] hashTable;
