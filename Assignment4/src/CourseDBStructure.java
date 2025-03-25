@@ -19,11 +19,12 @@ public class CourseDBStructure implements CourseDBStructureInterface {
         return true;
     }
     public CourseDBStructure(int size) {
-	for (int i = size/1.5; i < i*i; i++) {
-	    if (i % 4 == 3 && isPrime(i))
+	for (int i = (int) Math.floor((size*1.0)/1.5); i < i*i; i++) {
+	    if (i % 4 == 3 && isPrime(i)) {
+		tableSize = i;
 		break;
+	    }
 	}
-    	tableSize = i;
     	hashTable = new LinkedList[tableSize];
     }
     
