@@ -1,0 +1,72 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class CourseDBStructure implements CourseDBStructureInterface {
+	private LinkedList[] hashTable;
+    private int tableSize;
+    private int size;
+    
+    public CourseDBStructure(int size) {
+    	tableSize = size-1;
+    	hashTable = new LinkedList[tableSize];
+    }
+    
+    public CourseDBStructure(String testing,int size) {
+    	tableSize=size;
+		hashTable=new LinkedList[tableSize];
+	}
+    
+	@Override
+	public void add(CourseDBElement element) {
+        int hashVal = Math.abs(element.hashCode()) % tableSize;
+        if (hashTable[hashVal] == null) {
+            hashTable[hashVal] = new LinkedList<CourseDBElement>();
+        }
+
+        LinkedList<CourseDBElement> temp = hashTable[hashVal];
+        for (CourseDBElement e : temp) {
+            if (e.getCRN() == element.getCRN()) {
+                // Update the element if it already exists
+                temp.remove(e);
+                break;
+            }
+        }
+
+        temp.add(element);
+        size++;
+    }
+
+	@Override
+	public CourseDBElement get(int crn) throws IOException {
+		String temp = Integer.toString(crn);
+		int code = Math.abs(temp.hashCode())% tableSize;
+		if(hashTable[code]==null) {
+			throw new IOException();
+		} else {
+			return (CourseDBElement) hashTable[code].get(0);
+		}
+	}
+
+	@Override
+	public ArrayList<String> showAll() {
+		ArrayList<String> courses=new ArrayList<String>();
+		
+		for(int i=0;i<tableSize;i++) {
+			if (hashTable[i]!=null) {
+				for(int j=0;j<hashTable[i].size();j++) {
+					CourseDBElement element = (CourseDBElement) hashTable[i].get(j);
+					courses.add("\n"+element.toString());
+				}
+			}
+		}
+		return courses;
+	}
+
+	@Override
+	public int getTableSize() {
+		// TODO Auto-generated method stub
+		return tableSize;
+	}
+
+}
