@@ -16,8 +16,7 @@ public class Road implements Comparable<Road> {
 
 	@Override
 	public int compareTo(Road o) {
-		if ((this.head == o.getHead() && this.tail == o.getTail()) || (this.head == o.getTail() && this.tail == o.getHead())) return 0;
-		return -1;
+		return equals(o) ? 0 : -1;
 	}
 
 	protected Town getTail() {
